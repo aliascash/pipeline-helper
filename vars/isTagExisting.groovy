@@ -7,7 +7,7 @@ private void checkAndSetParams(Map params) {
     checkParams(params)
 
     // Set default values
-    params.tagToSearch = params.get('tagToSearch', 'latest')
+    params.tag = params.get('tag', 'latest')
 
     echo "Running with parameters:\n${params}"
 }
@@ -23,7 +23,7 @@ private void checkParams(Map params) {
         }
     }
 
-    Set ALL_PARAMS = ['user', 'repository', 'tagToSearch']
+    Set ALL_PARAMS = ['user', 'repository', 'tag']
 
     for (String param : params.keySet()) {
         if (!ALL_PARAMS.contains(param)) {
@@ -39,7 +39,7 @@ private void checkParams(Map params) {
 private boolean checkTagExistence(Map params) {
     def user = params.user
     def repository = params.repository
-    def tagToSearch = params.tagToSearch
+    def tag = params.tag
     def statusCode = sh(
             script: "docker run \\\n" +
                     "    --rm \\\n" +
@@ -47,7 +47,7 @@ private boolean checkTagExistence(Map params) {
                     "    spectreproject/github-uploader:latest \\\n" +
                     "    github-release info \\\n" +
                     "        --user ${user} \\\n" +
-                    "        --repo ${repository} | grep '\\- ${tagToSearch} (commit:'",
+                    "        --repo ${repository} | grep '\\- ${tag} (commit:'",
             returnStatus: true
     )
     return statusCode
