@@ -50,7 +50,6 @@ private boolean uploadArtifact(Map params) {
     def statusCode = sh(
             script: "docker run \\\n" +
                     "    --rm \\\n" +
-                    "    -it \\\n" +
                     "    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
                     "    -v ${WORKSPACE}:/filesToUpload \\\n" +
                     "    spectreproject/github-deployer:latest \\\n" +

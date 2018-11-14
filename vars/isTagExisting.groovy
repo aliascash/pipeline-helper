@@ -43,7 +43,6 @@ private boolean checkTagExistence(Map params) {
     def statusCode = sh(
             script: "docker run \\\n" +
                     "    --rm \\\n" +
-                    "    -it \\\n" +
                     "    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
                     "    spectreproject/github-deployer:latest \\\n" +
                     "    github-release info \\\n" +
