@@ -8,6 +8,8 @@ private void checkAndSetParams(Map params) {
 
     // Set default values
     params.tag = params.get('tag', 'latest')
+    params.name = params.get('name', '')
+    params.description = params.get('description', '')
     params.preRelease = params.preRelease == 'true' ? '--pre-release' : ''
 
     echo "Running with parameters:\n${params}"
@@ -54,7 +56,7 @@ private boolean createTag(Map params) {
                     "        --repo ${repository} \\\n" +
                     "        --tag ${tag} \\\n" +
                     "        --name \"${name}\" \\\n" +
-                    "        --description \"${description}\"\\\n" +
+                    "        --description \"${description}\" \\\n" +
                     "        ${preRelease}",
             returnStatus: true
     )
