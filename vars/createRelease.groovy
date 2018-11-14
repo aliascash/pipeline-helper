@@ -68,8 +68,8 @@ private boolean createRelease(Map params) {
                     "        --user ${user} \\\n" +
                     "        --repo ${repository} \\\n" +
                     "        --tag ${tag} \\\n" +
-                    "        ${nameOption} '${name}' \\\n" +
-                    "        ${descriptionOption} '${description}' \\\n" +
+                    "        ${nameOption} \\\"${name}\\\" \\\n" +
+                    "        ${descriptionOption} \\\"${description}\\\" \\\n" +
                     "        ${preRelease}",
             returnStatus: true
     )
