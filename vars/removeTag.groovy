@@ -47,7 +47,7 @@ private boolean removeTag(Map params) {
                     "    spectreproject/github-uploader:latest \\\n" +
                     "    github-release delete \\\n" +
                     "        --user ${user} \\\n" +
-                    "        --repo ${repository} \\\n",
+                    "        --repo ${repository} \\\n" +
                     "        --tag ${tag}",
             returnStatus: true
     )

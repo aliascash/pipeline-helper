@@ -51,10 +51,10 @@ private boolean createTag(Map params) {
                     "    spectreproject/github-uploader:latest \\\n" +
                     "    github-release release \\\n" +
                     "        --user ${user} \\\n" +
-                    "        --repo ${repository} \\\n",
-                    "        --tag ${tag} \\\n",
-                    "        --name \"${name}\" \\\n",
-                    "        --description \"${description}\"\\\n",
+                    "        --repo ${repository} \\\n" +
+                    "        --tag ${tag} \\\n" +
+                    "        --name \"${name}\" \\\n" +
+                    "        --description \"${description}\"\\\n" +
                     "        ${preRelease}",
             returnStatus: true
     )
