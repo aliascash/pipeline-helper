@@ -8,8 +8,8 @@ private void checkAndSetParams(Map params) {
 
     // Set default values
     params.tag = params.get('tag', 'latest')
-    params.name = params.name == null ? '' : "--name '${params.name}'"
-    params.description = params.description == null ? '' : "--description '${params.description}'"
+    params.name = params.name == null ? '' : "--name \"${params.name}\""
+    params.description = params.description == null ? '' : "--description \"${params.description}\""
     params.preRelease = params.preRelease == 'true' ? '--pre-release' : ''
 
     echo "Running with parameters:\n${params}"
