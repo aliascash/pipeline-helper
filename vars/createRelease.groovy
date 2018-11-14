@@ -8,9 +8,20 @@ private void checkAndSetParams(Map params) {
 
     // Set default values
     params.tag = params.get('tag', 'latest')
-    params.name = params.name == null ? '' : "--name \\\"${params.name}\\\""
-    params.description = params.description == null ? '' : "--description \\\"${params.description}\\\""
     params.preRelease = params.preRelease == 'true' ? '--pre-release' : ''
+
+    if (params.name == null) {
+        params.nameOption = ''
+        params.name = ''
+    } else {
+        params.nameOption = '--name'
+    }
+    if (params.description == null) {
+        params.descriptionOption = ''
+        params.description = ''
+    } else {
+        params.descriptionOption = '--description'
+    }
 
     echo "Running with parameters:\n${params}"
 }
@@ -43,7 +54,9 @@ private boolean createRelease(Map params) {
     def user = params.user
     def repository = params.repository
     def tag = params.tag
+    def nameOption = params.nameOption
     def name = params.name
+    def descriptionOption = params.descriptionOption
     def description = params.description
     def preRelease = params.preRelease
     def statusCode = sh(
@@ -55,8 +68,8 @@ private boolean createRelease(Map params) {
                     "        --user ${user} \\\n" +
                     "        --repo ${repository} \\\n" +
                     "        --tag ${tag} \\\n" +
-                    "        ${name} \\\n" +
-                    "        ${description} \\\n" +
+                    "        ${nameOption} \"${name}\" \\\n" +
+                    "        ${descriptionOption} \"${description}\" \\\n" +
                     "        ${preRelease}",
             returnStatus: true
     )
