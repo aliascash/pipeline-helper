@@ -47,7 +47,7 @@ private boolean checkTagExistence(Map params) {
                     "    spectreproject/github-uploader:latest \\\n" +
                     "    github-release info \\\n" +
                     "        --user ${user} \\\n" +
-                    "        --repo ${repository} | grep '\\- ${tag} (commit:'",
+                    "        --repo ${repository} | grep -- '- ${tag} (commit:'",
             returnStatus: true
     )
     return statusCode == 0
