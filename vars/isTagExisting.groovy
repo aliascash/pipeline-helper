@@ -50,5 +50,5 @@ private boolean checkTagExistence(Map params) {
                     "        --repo ${repository} | grep '\\- ${tag} (commit:'",
             returnStatus: true
     )
-    return statusCode
+    return statusCode == 0
 }
