@@ -1,6 +1,6 @@
 def call(Map params) {
     checkAndSetParams(params)
-    return checkTagExistence(params)
+    return createRelease(params)
 }
 
 private void checkAndSetParams(Map params) {
@@ -8,6 +8,9 @@ private void checkAndSetParams(Map params) {
 
     // Set default values
     params.tag = params.get('tag', 'latest')
+    params.name = params.name == '' ? '' : "--name '${params.name}'"
+    params.description = params.description == '' ? '' : "--description '${params.description}'"
+    params.preRelease = params.preRelease == 'true' ? '--pre-release' : ''
 
     echo "Running with parameters:\n${params}"
 }
@@ -23,7 +26,7 @@ private void checkParams(Map params) {
         }
     }
 
-    Set ALL_PARAMS = ['user', 'repository', 'tag']
+    Set ALL_PARAMS = ['user', 'repository', 'tag', 'name', 'description', 'preRelease']
 
     for (String param : params.keySet()) {
         if (!ALL_PARAMS.contains(param)) {
@@ -36,18 +39,25 @@ private void checkParams(Map params) {
     }
 }
 
-private boolean checkTagExistence(Map params) {
+private boolean createRelease(Map params) {
     def user = params.user
     def repository = params.repository
     def tag = params.tag
+    def name = params.name
+    def description = params.description
+    def preRelease = params.preRelease
     def statusCode = sh(
             script: "docker run \\\n" +
                     "    --rm \\\n" +
                     "    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
                     "    spectreproject/github-uploader:latest \\\n" +
-                    "    github-release info \\\n" +
+                    "    github-release release \\\n" +
                     "        --user ${user} \\\n" +
-                    "        --repo ${repository} | grep -- '- ${tag} (commit:'",
+                    "        --repo ${repository} \\\n" +
+                    "        --tag ${tag} \\\n" +
+                    "        ${name} \\\n" +
+                    "        ${description} \\\n" +
+                    "        ${preRelease}",
             returnStatus: true
     )
     return statusCode == 0

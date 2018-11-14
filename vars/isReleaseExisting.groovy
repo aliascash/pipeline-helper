@@ -1,6 +1,6 @@
 def call(Map params) {
     checkAndSetParams(params)
-    return createTag(params)
+    return checkReleaseExistence(params)
 }
 
 private void checkAndSetParams(Map params) {
@@ -8,9 +8,6 @@ private void checkAndSetParams(Map params) {
 
     // Set default values
     params.tag = params.get('tag', 'latest')
-    params.name = params.name == '' ? '' : "--name '${params.name}'"
-    params.description = params.description == '' ? '' : "--description '${params.description}'"
-    params.preRelease = params.preRelease == 'true' ? '--pre-release' : ''
 
     echo "Running with parameters:\n${params}"
 }
@@ -26,7 +23,7 @@ private void checkParams(Map params) {
         }
     }
 
-    Set ALL_PARAMS = ['user', 'repository', 'tag', 'name', 'description', 'preRelease']
+    Set ALL_PARAMS = ['user', 'repository', 'tag']
 
     for (String param : params.keySet()) {
         if (!ALL_PARAMS.contains(param)) {
@@ -39,25 +36,23 @@ private void checkParams(Map params) {
     }
 }
 
-private boolean createTag(Map params) {
+// See https://stackoverflow.com/questions/7103531/how-to-get-the-part-of-file-after-the-line-that-matches-grep-expression-first
+// - sed statement to get all content below 'releases:'
+// - 1st grep to filter out first line of each release. They look i. e. like this: "- 2.1.0, name: 'Spectrecoin v2.1.0'..."
+//   Must be done this way as the whole release notes will be shown here
+// - 2nd grep to find the line with the desired release
+private boolean checkReleaseExistence(Map params) {
     def user = params.user
     def repository = params.repository
     def tag = params.tag
-    def name = params.name
-    def description = params.description
-    def preRelease = params.preRelease
     def statusCode = sh(
             script: "docker run \\\n" +
                     "    --rm \\\n" +
                     "    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
                     "    spectreproject/github-uploader:latest \\\n" +
-                    "    github-release release \\\n" +
+                    "    github-release info \\\n" +
                     "        --user ${user} \\\n" +
-                    "        --repo ${repository} \\\n" +
-                    "        --tag ${tag} \\\n" +
-                    "        ${name} \\\n" +
-                    "        ${description} \\\n" +
-                    "        ${preRelease}",
+                    "        --repo ${repository} | sed -e '1,/releases:/d' | grep -- '- .*, name:' | grep '${tag}'",
             returnStatus: true
     )
     return statusCode == 0

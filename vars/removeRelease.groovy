@@ -1,6 +1,6 @@
 def call(Map params) {
     checkAndSetParams(params)
-    return removeTag(params)
+    return removeRelease(params)
 }
 
 private void checkAndSetParams(Map params) {
@@ -36,7 +36,7 @@ private void checkParams(Map params) {
     }
 }
 
-private boolean removeTag(Map params) {
+private boolean removeRelease(Map params) {
     def user = params.user
     def repository = params.repository
     def tag = params.tag
