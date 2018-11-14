@@ -52,7 +52,7 @@ private boolean uploadArtifact(Map params) {
                     "    --rm \\\n" +
                     "    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
                     "    -v ${WORKSPACE}:/filesToUpload \\\n" +
-                    "    spectreproject/github-deployer:latest \\\n" +
+                    "    spectreproject/github-uploader:latest \\\n" +
                     "    github-release info \\\n" +
                     "        --user ${user} \\\n" +
                     "        --repo ${repository} \\\n" +

@@ -44,7 +44,7 @@ private boolean checkTagExistence(Map params) {
             script: "docker run \\\n" +
                     "    --rm \\\n" +
                     "    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
-                    "    spectreproject/github-deployer:latest \\\n" +
+                    "    spectreproject/github-uploader:latest \\\n" +
                     "    github-release info \\\n" +
                     "        --user ${user} \\\n" +
                     "        --repo ${repository} | grep '\\- ${tagToSearch} (commit:'",
