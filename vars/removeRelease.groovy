@@ -41,14 +41,16 @@ private boolean removeRelease(Map params) {
     def repository = params.repository
     def tag = params.tag
     def statusCode = sh(
-            script: "docker run \\\n" +
-                    "    --rm \\\n" +
-                    "    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
-                    "    spectreproject/github-uploader:latest \\\n" +
-                    "    github-release delete \\\n" +
-                    "        --user ${user} \\\n" +
-                    "        --repo ${repository} \\\n" +
-                    "        --tag ${tag}",
+            script: """
+                docker run \\
+                    --rm \\
+                    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
+                    spectreproject/github-uploader:latest \\
+                    github-release delete \\
+                        --user ${user} \\
+                        --repo ${repository} \\
+                        --tag ${tag}
+            """,
             returnStatus: true
     )
     return statusCode == 0

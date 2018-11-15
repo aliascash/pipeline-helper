@@ -47,14 +47,14 @@ private boolean checkReleaseExistence(Map params) {
     def tag = params.tag
     def statusCode = sh(
             script: """
-                    docker run \\
-                        --rm \\
-                        -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
-                        spectreproject/github-uploader:latest \\
-                        github-release info \\
-                            --user ${user} \\
-                            --repo ${repository} | sed -e '1,/releases:/d' | grep -- '- .*, name:' | grep '${tag}'                
-                """,
+                docker run \\
+                    --rm \\
+                    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
+                    spectreproject/github-uploader:latest \\
+                    github-release info \\
+                        --user ${user} \\
+                        --repo ${repository} | sed -e '1,/releases:/d' | grep -- '- .*, name:' | grep '${tag}'                
+            """,
             returnStatus: true
     )
     return statusCode == 0

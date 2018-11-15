@@ -60,17 +60,19 @@ private boolean createRelease(Map params) {
     def description = params.description
     def preRelease = params.preRelease
     def statusCode = sh(
-            script: "docker run \\\n" +
-                    "    --rm \\\n" +
-                    "    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
-                    "    spectreproject/github-uploader:latest \\\n" +
-                    "    github-release release \\\n" +
-                    "        --user ${user} \\\n" +
-                    "        --repo ${repository} \\\n" +
-                    "        --tag ${tag} \\\n" +
-                    "        ${nameOption} \\\"${name}\\\" \\\n" +
-                    "        ${descriptionOption} \\\"${description}\\\" \\\n" +
-                    "        ${preRelease}",
+            script: """
+                docker run \\
+                    --rm \\
+                    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
+                    spectreproject/github-uploader:latest \\
+                    github-release release \\
+                        --user ${user} \\
+                        --repo ${repository} \\
+                        --tag ${tag} \\
+                        ${nameOption} "${name}" \\
+                        ${descriptionOption} "${description}" \\
+                        ${preRelease}
+            """,
             returnStatus: true
     )
     return statusCode == 0

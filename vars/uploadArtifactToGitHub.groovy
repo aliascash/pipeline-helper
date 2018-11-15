@@ -48,18 +48,20 @@ private boolean uploadArtifact(Map params) {
     def artifactNameLocal = params.artifactNameLocal
     def artifactNameRemote = params.artifactNameRemote
     def statusCode = sh(
-            script: "docker run \\\n" +
-                    "    --rm \\\n" +
-                    "    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
-                    "    -v ${WORKSPACE}:/filesToUpload \\\n" +
-                    "    spectreproject/github-uploader:latest \\\n" +
-                    "    github-release upload \\\n" +
-                    "        --user ${user} \\\n" +
-                    "        --repo ${repository} \\\n" +
-                    "        --tag ${tag} \\\n" +
-                    "        --name \"${artifactNameRemote}\" \\\n" +
-                    "        --file /filesToUpload/${artifactNameLocal} \\\n" +
-                    "        --replace",
+            script: """
+                docker run \\
+                    --rm \\
+                    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
+                    -v ${WORKSPACE}:/filesToUpload \\
+                    spectreproject/github-uploader:latest \\
+                    github-release upload \\
+                        --user ${user} \\
+                        --repo ${repository} \\
+                        --tag ${tag} \\
+                        --name "${artifactNameRemote}" \\
+                        --file /filesToUpload/${artifactNameLocal} \\
+                        --replace
+            """,
             returnStatus: true
     )
     return statusCode
