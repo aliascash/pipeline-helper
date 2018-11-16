@@ -42,19 +42,19 @@ private void checkParams(Map params) {
 //   Must be done this way as the whole release notes will be shown here
 // - 2nd grep to find the line with the desired release
 private boolean checkReleaseExistence(Map params) {
-    def user = params.user
-    def repository = params.repository
-    def tag = params.tag
+    env.GITHUB_USER = params.user
+    env.GITHUB_REPOSITORY = params.repository
+    env.GITHUB_TAG = params.tag
     def statusCode = sh(
-            script: """
+            script: '''
                 docker run \\
                     --rm \\
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     spectreproject/github-uploader:latest \\
                     github-release info \\
-                        --user ${user} \\
-                        --repo ${repository} | sed -e '1,/releases:/d' | grep -- '- .*, name:' | grep '${tag}'                
-            """,
+                        --user ${GITHUB_USER} \\
+                        --repo ${GITHUB_REPOSITORY} | sed -e '1,/releases:/d' | grep -- '- .*, name:' | grep '${GITHUB_TAG}'                
+            ''',
             returnStatus: true
     )
     return statusCode == 0

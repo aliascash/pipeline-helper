@@ -37,20 +37,20 @@ private void checkParams(Map params) {
 }
 
 private boolean removeRelease(Map params) {
-    def user = params.user
-    def repository = params.repository
-    def tag = params.tag
+    env.GITHUB_USER = params.user
+    env.GITHUB_REPOSITORY = params.repository
+    env.GITHUB_TAG = params.tag
     def statusCode = sh(
-            script: """
+            script: '''
                 docker run \\
                     --rm \\
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     spectreproject/github-uploader:latest \\
                     github-release delete \\
-                        --user ${user} \\
-                        --repo ${repository} \\
-                        --tag ${tag}
-            """,
+                        --user ${GITHUB_USER} \\
+                        --repo ${GITHUB_REPOSITORY} \\
+                        --tag ${GITHUB_TAG}
+            ''',
             returnStatus: true
     )
     return statusCode == 0

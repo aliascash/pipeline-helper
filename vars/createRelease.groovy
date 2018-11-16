@@ -51,16 +51,14 @@ private void checkParams(Map params) {
 }
 
 private boolean createRelease(Map params) {
-    environment {
-        GITHUB_USER = params.user
-        GITHUB_REPOSITORY = params.repository
-        GITHUB_TAG = params.tag
-        GITHUB_NAMEOPTION = params.nameOption
-        GITHUB_NAME = params.name
-        GITHUB_DESCRIPTIONOPTION = params.descriptionOption
-        GITHUB_DESCRIPTION = params.description
-        GITHUB_PRERELEASE = params.preRelease
-    }
+    env.GITHUB_USER = params.user
+    env.GITHUB_REPOSITORY = params.repository
+    env.GITHUB_TAG = params.tag
+    env.GITHUB_NAMEOPTION = params.nameOption
+    env.GITHUB_NAME = params.name
+    env.GITHUB_DESCRIPTIONOPTION = params.descriptionOption
+    env.GITHUB_DESCRIPTION = params.description
+    env.GITHUB_PRERELEASE = params.preRelease
     def statusCode = sh(
             script: '''
                 docker run \\
@@ -71,8 +69,8 @@ private boolean createRelease(Map params) {
                         --user ${GITHUB_USER} \\
                         --repo ${GITHUB_REPOSITORY} \\
                         --tag ${GITHUB_TAG} \\
-                        ${GITHUB_NAMEOPTION} "${GITHUB_NAME}" \\
-                        ${GITHUB_DESCRIPTIONOPTION} "${GITHUB_DESCRIPTION}" \\
+                        ${GITHUB_NAMEOPTION} \\"${GITHUB_NAME}\\" \\
+                        ${GITHUB_DESCRIPTIONOPTION} \\"${GITHUB_DESCRIPTION}\\" \\
                         ${GITHUB_PRERELEASE}
             ''',
             returnStatus: true

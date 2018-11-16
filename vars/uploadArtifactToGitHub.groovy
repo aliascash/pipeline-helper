@@ -42,26 +42,26 @@ private void checkParams(Map params) {
 }
 
 private boolean uploadArtifact(Map params) {
-    def user = params.user
-    def repository = params.repository
-    def tag = params.tag
-    def artifactNameLocal = params.artifactNameLocal
-    def artifactNameRemote = params.artifactNameRemote
+    env.GITHUB_USER = params.user
+    env.GITHUB_REPOSITORY = params.repository
+    env.GITHUB_TAG = params.tag
+    env.GITHUB_ARTIFACTNAMELOCAL = params.artifactNameLocal
+    env.GITHUB_ARTIFACTNAMEREMOTE = params.artifactNameRemote
     def statusCode = sh(
-            script: """
+            script: '''
                 docker run \\
                     --rm \\
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     -v ${WORKSPACE}:/filesToUpload \\
                     spectreproject/github-uploader:latest \\
                     github-release upload \\
-                        --user ${user} \\
-                        --repo ${repository} \\
-                        --tag ${tag} \\
-                        --name "${artifactNameRemote}" \\
-                        --file /filesToUpload/${artifactNameLocal} \\
+                        --user ${GITHUB_USER} \\
+                        --repo ${GITHUB_REPOSITORY} \\
+                        --tag ${GITHUB_TAG} \\
+                        --name \\"${GITHUB_ARTIFACTNAMEREMOTE}\\" \\
+                        --file /filesToUpload/${GITHUB_ARTIFACTNAMELOCAL} \\
                         --replace
-            """,
+            ''',
             returnStatus: true
     )
     return statusCode
