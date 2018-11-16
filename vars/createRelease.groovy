@@ -51,28 +51,31 @@ private void checkParams(Map params) {
 }
 
 private boolean createRelease(Map params) {
-    def user = params.user
-    def repository = params.repository
-    def tag = params.tag
-    def nameOption = params.nameOption
-    def name = params.name
-    def descriptionOption = params.descriptionOption
-    def description = params.description
-    def preRelease = params.preRelease
+    environment {
+        env.GITHUB_TOKEN = ${GITHUB_TOKEN}
+        env.GITHUB_USER = params.user
+        env.GITHUB_REPOSITORY = params.repository
+        env.GITHUB_TAG = params.tag
+        env.GITHUB_NAMEOPTION = params.nameOption
+        env.GITHUB_NAME = params.name
+        env.GITHUB_DESCRIPTIONOPTION = params.descriptionOption
+        env.GITHUB_DESCRIPTION = params.description
+        env.GITHUB_PRERELEASE = params.preRelease
+    }
     def statusCode = sh(
-            script: """
+            script: '''
                 docker run \\
                     --rm \\
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     spectreproject/github-uploader:latest \\
                     github-release release \\
-                        --user ${user} \\
-                        --repo ${repository} \\
-                        --tag ${tag} \\
-                        ${nameOption} \"${name}\" \\
-                        ${descriptionOption} \"${description}\" \\
-                        ${preRelease}
-            """,
+                        --user ${GITHUB_USER} \\
+                        --repo ${GITHUB_REPOSITORY} \\
+                        --tag ${GITHUB_TAG} \\
+                        ${GITHUB_NAMEOPTION} "${GITHUB_NAME}" \\
+                        ${GITHUB_DESCRIPTIONOPTION} "${GITHUB_DESCRIPTION}" \\
+                        ${GITHUB_PRERELEASE}
+            ''',
             returnStatus: true
     )
     return statusCode == 0
