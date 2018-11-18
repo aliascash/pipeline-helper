@@ -70,9 +70,9 @@ private Boolean createRelease(Map params) {
                         --user "${GITHUB_USER}" \\
                         --repo "${GITHUB_REPOSITORY}" \\
                         --tag "${GITHUB_TAG}" \\
-                        "${GITHUB_NAMEOPTION}" "${GITHUB_NAME}" \\
-                        "${GITHUB_DESCRIPTIONOPTION}" "${GITHUB_DESCRIPTION}" \\
-                        "${GITHUB_PRERELEASE}"
+                        ${GITHUB_NAMEOPTION} "${GITHUB_NAME}" \\
+                        ${GITHUB_DESCRIPTIONOPTION} "${GITHUB_DESCRIPTION}" \\
+                        ${GITHUB_PRERELEASE}
             ''',
             returnStatus: true
     )
