@@ -11,16 +11,10 @@ private void checkAndSetParams(Map params) {
     params.preRelease = params.preRelease == 'true' ? '--pre-release' : ''
 
     if (params.name == null) {
-        params.nameOption = ''
-        params.name = ''
-    } else {
-        params.nameOption = '--name'
+        params.name = params.tag
     }
     if (params.description == null) {
-        params.descriptionOption = ''
-        params.description = ''
-    } else {
-        params.descriptionOption = '--description'
+        params.description = params.tag
     }
 
     echo "Running with parameters:\n${params}"
@@ -70,8 +64,8 @@ private Boolean createRelease(Map params) {
                         --user "${GITHUB_USER}" \\
                         --repo "${GITHUB_REPOSITORY}" \\
                         --tag "${GITHUB_TAG}" \\
-                        ${GITHUB_NAMEOPTION} "${GITHUB_NAME}" \\
-                        ${GITHUB_DESCRIPTIONOPTION} "${GITHUB_DESCRIPTION}" \\
+                        --name "${GITHUB_NAME}" \\
+                        --description "${GITHUB_DESCRIPTION}" \\
                         ${GITHUB_PRERELEASE}
             ''',
             returnStatus: true
