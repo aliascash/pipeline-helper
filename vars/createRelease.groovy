@@ -67,12 +67,12 @@ private Boolean createRelease(Map params) {
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     spectreproject/github-uploader:latest \\
                     github-release release \\
-                        --user ${GITHUB_USER} \\
-                        --repo ${GITHUB_REPOSITORY} \\
-                        --tag ${GITHUB_TAG} \\
-                        ${GITHUB_NAMEOPTION} "${GITHUB_NAME}" \\
-                        ${GITHUB_DESCRIPTIONOPTION} "${GITHUB_DESCRIPTION}" \\
-                        ${GITHUB_PRERELEASE}
+                        --user "${GITHUB_USER}" \\
+                        --repo "${GITHUB_REPOSITORY}" \\
+                        --tag "${GITHUB_TAG}" \\
+                        "${GITHUB_NAMEOPTION}" "${GITHUB_NAME}" \\
+                        "${GITHUB_DESCRIPTIONOPTION}" "${GITHUB_DESCRIPTION}" \\
+                        "${GITHUB_PRERELEASE}"
             ''',
             returnStatus: true
     )

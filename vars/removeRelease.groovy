@@ -47,9 +47,9 @@ private Boolean removeRelease(Map params) {
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     spectreproject/github-uploader:latest \\
                     github-release delete \\
-                        --user ${GITHUB_USER} \\
-                        --repo ${GITHUB_REPOSITORY} \\
-                        --tag ${GITHUB_TAG}
+                        --user "${GITHUB_USER}" \\
+                        --repo "${GITHUB_REPOSITORY}" \\
+                        --tag "${GITHUB_TAG}"
             ''',
             returnStatus: true
     )

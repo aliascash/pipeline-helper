@@ -52,8 +52,8 @@ private Boolean checkReleaseExistence(Map params) {
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     spectreproject/github-uploader:latest \\
                     github-release info \\
-                        --user ${GITHUB_USER} \\
-                        --repo ${GITHUB_REPOSITORY} | sed -e '1,/releases:/d' | grep -- "- ${GITHUB_TAG}, name: "
+                        --user "${GITHUB_USER}" \\
+                        --repo "${GITHUB_REPOSITORY}" | sed -e '1,/releases:/d' | grep -- "- ${GITHUB_TAG}, name: "
             ''',
             returnStatus: true
     )

@@ -56,11 +56,11 @@ private Boolean uploadArtifact(Map params) {
                     -v ${WORKSPACE}:/filesToUpload \\
                     spectreproject/github-uploader:latest \\
                     github-release upload \\
-                        --user ${GITHUB_USER} \\
-                        --repo ${GITHUB_REPOSITORY} \\
-                        --tag ${GITHUB_TAG} \\
+                        --user "${GITHUB_USER}" \\
+                        --repo "${GITHUB_REPOSITORY}" \\
+                        --tag "${GITHUB_TAG}" \\
                         --name "${GITHUB_ARTIFACTNAMEREMOTE}" \\
-                        --file /filesToUpload/${GITHUB_ARTIFACTNAMELOCAL} \\
+                        --file "/filesToUpload/${GITHUB_ARTIFACTNAMELOCAL}" \\
                         --replace
             ''',
             returnStatus: true
