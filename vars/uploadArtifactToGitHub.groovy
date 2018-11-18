@@ -59,7 +59,7 @@ private boolean uploadArtifact(Map params) {
                         --user ${GITHUB_USER} \\
                         --repo ${GITHUB_REPOSITORY} \\
                         --tag ${GITHUB_TAG} \\
-                        --name \\"${GITHUB_ARTIFACTNAMEREMOTE}\\" \\
+                        --name "${GITHUB_ARTIFACTNAMEREMOTE}" \\
                         --file /filesToUpload/${GITHUB_ARTIFACTNAMELOCAL} \\
                         --replace
             ''',
