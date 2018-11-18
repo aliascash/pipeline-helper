@@ -36,7 +36,7 @@ private void checkParams(Map params) {
     }
 }
 
-private boolean removeRelease(Map params) {
+private Boolean removeRelease(Map params) {
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag

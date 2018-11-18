@@ -50,7 +50,7 @@ private void checkParams(Map params) {
     }
 }
 
-private boolean createRelease(Map params) {
+private Boolean createRelease(Map params) {
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag

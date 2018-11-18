@@ -41,7 +41,7 @@ private void checkParams(Map params) {
 // - 1st grep to filter out first line of each release. They look i. e. like this: "- 2.1.0, name: 'Spectrecoin v2.1.0'..."
 //   Must be done this way as the whole release notes will be shown here
 // - 2nd grep to find the line with the desired release
-private boolean checkReleaseExistence(Map params) {
+private Boolean checkReleaseExistence(Map params) {
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag
