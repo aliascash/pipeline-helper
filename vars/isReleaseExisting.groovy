@@ -53,7 +53,7 @@ private boolean checkReleaseExistence(Map params) {
                     spectreproject/github-uploader:latest \\
                     github-release info \\
                         --user ${GITHUB_USER} \\
-                        --repo ${GITHUB_REPOSITORY} | sed -e '1,/releases:/d' | grep -- '- .*, name:' | grep '${GITHUB_TAG}'                
+                        --repo ${GITHUB_REPOSITORY} | sed -e '1,/releases:/d' | grep -- "- ${GITHUB_TAG}, name: "
             ''',
             returnStatus: true
     )

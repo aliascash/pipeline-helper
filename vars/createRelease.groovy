@@ -63,6 +63,7 @@ private boolean createRelease(Map params) {
             script: '''
                 docker run \\
                     --rm \\
+                    -t \\
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     spectreproject/github-uploader:latest \\
                     github-release release \\

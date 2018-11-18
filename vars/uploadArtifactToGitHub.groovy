@@ -51,6 +51,7 @@ private boolean uploadArtifact(Map params) {
             script: '''
                 docker run \\
                     --rm \\
+                    -t \\
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     -v ${WORKSPACE}:/filesToUpload \\
                     spectreproject/github-uploader:latest \\
