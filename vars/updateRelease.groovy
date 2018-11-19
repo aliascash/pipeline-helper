@@ -54,7 +54,7 @@ private Boolean updateRelease(Map params) {
     env.GITHUB_PRERELEASE = params.preRelease
     def statusCode = sh(
             script: '''
-                if [[ -e ${GITHUB_DESCRIPTION} ]] ; then 
+                if test -e ${GITHUB_DESCRIPTION} ; then 
                     docker run \\
                         --rm \\
                         -t \\
