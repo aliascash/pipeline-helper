@@ -5,8 +5,10 @@ def call(Map params) {
     File descriptionFile = new File(fileName)
     if (descriptionFile.exists()) {
         params.description = params.description.replace('@', '\\@')
+        echo "Using file ${params.description} for release notes"
         return updateReleaseWithReleaseNotes(params)
     } else {
+        echo "Using given string as release notes"
         return updateRelease(params)
     }
 }
@@ -85,9 +87,7 @@ private Boolean updateReleaseWithReleaseNotes(Map params) {
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag
-    env.GITHUB_NAMEOPTION = params.nameOption
     env.GITHUB_NAME = params.name
-    env.GITHUB_DESCRIPTIONOPTION = params.descriptionOption
     env.GITHUB_DESCRIPTION = params.description
     env.GITHUB_PRERELEASE = params.preRelease
     def statusCode = sh(

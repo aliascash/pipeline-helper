@@ -48,9 +48,7 @@ private Boolean createRelease(Map params) {
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag
-    env.GITHUB_NAMEOPTION = params.nameOption
     env.GITHUB_NAME = params.name
-    env.GITHUB_DESCRIPTIONOPTION = params.descriptionOption
     env.GITHUB_DESCRIPTION = params.description
     env.GITHUB_PRERELEASE = params.preRelease
     def statusCode = sh(
