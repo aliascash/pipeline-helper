@@ -1,16 +1,7 @@
 def call(Map params) {
     checkAndSetParams(params)
 
-    String fileName = params.description
-    File descriptionFile = new File(fileName)
-    if (descriptionFile.exists()) {
-        params.description = params.description.replace('@', '\\@')
-        echo "Using file ${params.description} for release notes"
-        return updateReleaseWithReleaseNotes(params)
-    } else {
-        echo "Using given string as release notes"
-        return updateRelease(params)
-    }
+    return updateRelease(params)
 }
 
 private void checkAndSetParams(Map params) {
@@ -58,52 +49,38 @@ private Boolean updateRelease(Map params) {
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag
-    env.GITHUB_NAMEOPTION = params.nameOption
-    env.GITHUB_NAME = params.name
-    env.GITHUB_DESCRIPTIONOPTION = params.descriptionOption
-    env.GITHUB_DESCRIPTION = params.description
-    env.GITHUB_PRERELEASE = params.preRelease
-    def statusCode = sh(
-            script: '''
-                docker run \\
-                    --rm \\
-                    -t \\
-                    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
-                    spectreproject/github-uploader:latest \\
-                    github-release edit \\
-                        --user "${GITHUB_USER}" \\
-                        --repo "${GITHUB_REPOSITORY}" \\
-                        --tag "${GITHUB_TAG}" \\
-                        --name "${GITHUB_NAME}" \\
-                        --description "${GITHUB_DESCRIPTION}" \\
-                        ${GITHUB_PRERELEASE}
-            ''',
-            returnStatus: true
-    )
-    return statusCode == 0
-}
-
-private Boolean updateReleaseWithReleaseNotes(Map params) {
-    env.GITHUB_USER = params.user
-    env.GITHUB_REPOSITORY = params.repository
-    env.GITHUB_TAG = params.tag
     env.GITHUB_NAME = params.name
     env.GITHUB_DESCRIPTION = params.description
     env.GITHUB_PRERELEASE = params.preRelease
     def statusCode = sh(
             script: '''
-                docker run \\
-                    --rm \\
-                    -t \\
-                    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
-                    spectreproject/github-uploader:latest \\
-                    github-release edit \\
-                        --user "${GITHUB_USER}" \\
-                        --repo "${GITHUB_REPOSITORY}" \\
-                        --tag "${GITHUB_TAG}" \\
-                        --name "${GITHUB_NAME}" \\
-                        --description "$(cat ${GITHUB_DESCRIPTION})" \\
-                        ${GITHUB_PRERELEASE}
+                if [[ -e ${GITHUB_DESCRIPTION} ]] ; then 
+                    docker run \\
+                        --rm \\
+                        -t \\
+                        -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
+                        spectreproject/github-uploader:latest \\
+                        github-release edit \\
+                            --user "${GITHUB_USER}" \\
+                            --repo "${GITHUB_REPOSITORY}" \\
+                            --tag "${GITHUB_TAG}" \\
+                            --name "${GITHUB_NAME}" \\
+                            --description "$(cat ${GITHUB_DESCRIPTION})" \\
+                            ${GITHUB_PRERELEASE}
+                else
+                    docker run \\
+                        --rm \\
+                        -t \\
+                        -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
+                        spectreproject/github-uploader:latest \\
+                        github-release edit \\
+                            --user "${GITHUB_USER}" \\
+                            --repo "${GITHUB_REPOSITORY}" \\
+                            --tag "${GITHUB_TAG}" \\
+                            --name "${GITHUB_NAME}" \\
+                            --description "${GITHUB_DESCRIPTION}" \\
+                            ${GITHUB_PRERELEASE}
+                fi
             ''',
             returnStatus: true
     )
