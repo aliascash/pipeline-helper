@@ -4,6 +4,7 @@ def call(Map params) {
     String fileName = params.description
     File descriptionFile = new File(fileName)
     if (descriptionFile.exists()) {
+        params.description = params.description.replace('@', '\\@')
         return updateReleaseWithReleaseNotes(params)
     } else {
         return updateRelease(params)
