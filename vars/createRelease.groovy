@@ -53,18 +53,33 @@ private Boolean createRelease(Map params) {
     env.GITHUB_PRERELEASE = params.preRelease
     def statusCode = sh(
             script: '''
-                docker run \\
-                    --rm \\
-                    -t \\
-                    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
-                    spectreproject/github-uploader:latest \\
-                    github-release release \\
-                        --user "${GITHUB_USER}" \\
-                        --repo "${GITHUB_REPOSITORY}" \\
-                        --tag "${GITHUB_TAG}" \\
-                        --name "${GITHUB_NAME}" \\
-                        --description "${GITHUB_DESCRIPTION}" \\
-                        ${GITHUB_PRERELEASE}
+                if test -e ${GITHUB_DESCRIPTION} ; then 
+                    docker run \\
+                        --rm \\
+                        -t \\
+                        -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
+                        spectreproject/github-uploader:latest \\
+                        github-release release \\
+                            --user "${GITHUB_USER}" \\
+                            --repo "${GITHUB_REPOSITORY}" \\
+                            --tag "${GITHUB_TAG}" \\
+                            --name "${GITHUB_NAME}" \\
+                            --description "$(cat ${GITHUB_DESCRIPTION})" \\
+                            ${GITHUB_PRERELEASE}
+                else
+                    docker run \\
+                        --rm \\
+                        -t \\
+                        -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
+                        spectreproject/github-uploader:latest \\
+                        github-release release \\
+                            --user "${GITHUB_USER}" \\
+                            --repo "${GITHUB_REPOSITORY}" \\
+                            --tag "${GITHUB_TAG}" \\
+                            --name "${GITHUB_NAME}" \\
+                            --description "${GITHUB_DESCRIPTION}" \\
+                            ${GITHUB_PRERELEASE}
+                fi
             ''',
             returnStatus: true
     )
