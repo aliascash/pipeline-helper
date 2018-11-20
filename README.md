@@ -1,7 +1,8 @@
 # Spectrecoin pipeline helpers
 
 This repository contains some helper functions, which where used by our
-[Continuous Integration](https://ci.spectreproject.io).
+[Continuous Integration](https://ci.spectreproject.io). They are includet
+as [Shared Libraries](https://jenkins.io/doc/book/pipeline/shared-libraries/).
 
 ## Git tag handling
 
@@ -10,6 +11,8 @@ This repository contains some helper functions, which where used by our
 This function creates a Git tag with given name on given commit with
 given comment as commit message. This is the first step to create a release
 on GitHub because each release is corresponding to a Git tag.
+
+The used account must have push permission.
 
 Usage:
 ```
@@ -24,6 +27,11 @@ Optional parameters:
 * *comment:* - If not given, the value from *tag:* will be used as comment.
 
 ## GitHub release handling
+
+The whole GitHub release handling is based on our Docker image
+[github-uploader](https://github.com/spectrecoin/github-uploader). So the
+functions here are more or less wrappers around the different Docker-run-calls
+with parameter validation and error handling.
 
 ### createRelease(...)
 
