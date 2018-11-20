@@ -1,3 +1,9 @@
+// ----------------------------------------------------------------------------
+//  Copyright (c) 2018 The Spectrecoin developers
+//
+//  @author   HLXEasy <helix@spectreproject.io>
+// ----------------------------------------------------------------------------
+
 def call(Map params) {
     checkAndSetParams(params)
     return createRelease(params)
