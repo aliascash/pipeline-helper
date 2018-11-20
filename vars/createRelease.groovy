@@ -6,7 +6,7 @@
 
 def call(Map params) {
     checkAndSetParams(params)
-    return createRelease(params)
+    createRelease(params)
 }
 
 private void checkAndSetParams(Map params) {
@@ -50,14 +50,14 @@ private void checkParams(Map params) {
     }
 }
 
-private Boolean createRelease(Map params) {
+private void createRelease(Map params) {
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag
     env.GITHUB_NAME = params.name
     env.GITHUB_DESCRIPTION = params.description
     env.GITHUB_PRERELEASE = params.preRelease
-    def statusCode = sh(
+    sh(
             script: '''
                 if test -e ${GITHUB_DESCRIPTION} ; then 
                     docker run \\
@@ -86,8 +86,6 @@ private Boolean createRelease(Map params) {
                             --description "${GITHUB_DESCRIPTION}" \\
                             ${GITHUB_PRERELEASE}
                 fi
-            ''',
-            returnStatus: true
+            '''
     )
-    return statusCode == 0
 }

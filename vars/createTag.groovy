@@ -6,7 +6,7 @@
 
 def call(Map params) {
     checkAndSetParams(params)
-    return createTag(params)
+    createTag(params)
 }
 
 private void checkAndSetParams(Map params) {
@@ -46,16 +46,14 @@ private void checkParams(Map params) {
     }
 }
 
-private Boolean createTag(Map params) {
+private void createTag(Map params) {
     env.GITHUB_TAG = params.tag
     env.GITHUB_COMMIT = params.commit
     env.GITHUB_COMMENT = params.comment
-    def statusCode = sh(
+    sh(
             script: '''
                 git tag -fa "${GITHUB_TAG}" -m "${GITHUB_COMMENT}" ${GITHUB_COMMIT}
                 git push --tags
-            ''',
-            returnStatus: true
+            '''
     )
-    return statusCode == 0
 }

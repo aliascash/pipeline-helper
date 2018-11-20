@@ -6,7 +6,7 @@
 
 def call(Map params) {
     checkAndSetParams(params)
-    return removeRelease(params)
+    removeRelease(params)
 }
 
 private void checkAndSetParams(Map params) {
@@ -42,11 +42,11 @@ private void checkParams(Map params) {
     }
 }
 
-private Boolean removeRelease(Map params) {
+private void removeRelease(Map params) {
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag
-    def statusCode = sh(
+    sh(
             script: '''
                 docker run \\
                     --rm \\
@@ -56,8 +56,6 @@ private Boolean removeRelease(Map params) {
                         --user "${GITHUB_USER}" \\
                         --repo "${GITHUB_REPOSITORY}" \\
                         --tag "${GITHUB_TAG}"
-            ''',
-            returnStatus: true
+            '''
     )
-    return statusCode == 0
 }
