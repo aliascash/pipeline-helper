@@ -6,7 +6,7 @@
 
 def call(Map params) {
     checkAndSetParams(params)
-    return uploadArtifact(params)
+    uploadArtifact(params)
 }
 
 private void checkAndSetParams(Map params) {
@@ -43,13 +43,13 @@ private void checkParams(Map params) {
     }
 }
 
-private Boolean uploadArtifact(Map params) {
+private void uploadArtifact(Map params) {
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag
     env.GITHUB_ARTIFACTNAMELOCAL = params.artifactNameLocal
     env.GITHUB_ARTIFACTNAMEREMOTE = params.artifactNameRemote
-    def statusCode = sh(
+    sh(
             script: '''
                 docker run \\
                     --rm \\
@@ -64,8 +64,6 @@ private Boolean uploadArtifact(Map params) {
                         --name "${GITHUB_ARTIFACTNAMEREMOTE}" \\
                         --file "/filesToUpload/${GITHUB_ARTIFACTNAMELOCAL}" \\
                         --replace
-            ''',
-            returnStatus: true
+            '''
     )
-    return statusCode
 }

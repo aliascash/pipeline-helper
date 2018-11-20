@@ -6,7 +6,6 @@
 
 def call(Map params) {
     checkAndSetParams(params)
-
     return updateRelease(params)
 }
 
