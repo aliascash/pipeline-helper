@@ -53,7 +53,7 @@ private void createTag(Map params) {
     sh(
             script: '''
                 git tag -fa "${GITHUB_TAG}" -m "${GITHUB_COMMENT}" ${GITHUB_COMMIT}
-                git push --tags
+                git push --tags --force
             '''
     )
 }
