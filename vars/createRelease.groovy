@@ -14,7 +14,7 @@ private void checkAndSetParams(Map params) {
 
     // Set default values
     params.tag = params.get('tag', 'latest')
-    params.preRelease = params.preRelease == true ? '--pre-release' : ''
+    params.preRelease = params.preRelease == 'true' ? '--pre-release' : ''
 
     if (params.name == null) {
         params.name = params.tag
