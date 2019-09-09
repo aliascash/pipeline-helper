@@ -1,13 +1,27 @@
-def call(String dockerfile, String dockerTag, String gitTag, String gitCommit) {
+// ----------------------------------------------------------------------------
+//  Copyright (c) 2019 The Spectrecoin developers
+//
+//  @author   HLXEasy <helix@spectreproject.io>
+// ----------------------------------------------------------------------------
+
+def call(Map params = [:]) {
+    String dockerfile = params.get("dockerfile")
+    String dockerTag = params.get("tag")
+    String gitTag = params.get("gitTag")
+    String gitCommit = params.get("gitCommit")
     withDockerRegistry(credentialsId: '051efa8c-aebd-40f7-9cfd-0053c413266e') {
-        sh "docker build \\\n" +
-                "-f ${dockerfile} \\\n" +
-                "--rm \\\n" +
-                "--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
-                "--build-arg GIT_COMMIT=${gitCommit} \\\n" +
-                "--build-arg SPECTRECOIN_RELEASE=${gitTag} \\\n" +
-                "--build-arg REPLACE_EXISTING_ARCHIVE=--replace \\\n" +
-                "-t ${dockerTag} \\\n" +
-                "."
+        sh(
+                script: """
+                    docker build \
+                        -f ${dockerfile} \
+                        --rm \
+                        --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} \
+                        --build-arg GIT_COMMIT=${gitCommit} \
+                        --build-arg SPECTRECOIN_RELEASE=${gitTag} \
+                        --build-arg REPLACE_EXISTING_ARCHIVE=--replace \
+                        -t ${dockerTag} \
+                        .
+                """
+        )
     }
 }

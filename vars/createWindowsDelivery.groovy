@@ -1,4 +1,13 @@
-def call(String version, String suffix) {
+// ----------------------------------------------------------------------------
+//  Copyright (c) 2019 The Spectrecoin developers
+//
+//  @author   HLXEasy <helix@spectreproject.io>
+// ----------------------------------------------------------------------------
+
+def call(Map params = [:]) {
+    String version = params.get("version")
+    String suffix = params.get("suffix")
+
     // Unzip Tor and remove debug content
     fileOperations([
             fileUnZipOperation(

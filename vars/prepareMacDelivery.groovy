@@ -1,3 +1,9 @@
+// ----------------------------------------------------------------------------
+//  Copyright (c) 2019 The Spectrecoin developers
+//
+//  @author   HLXEasy <helix@spectreproject.io>
+// ----------------------------------------------------------------------------
+
 def call() {
     def exists = fileExists 'Tor.zip'
     if (exists) {
