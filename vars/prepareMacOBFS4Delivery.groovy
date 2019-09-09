@@ -1,4 +1,4 @@
-def prepareMacOBFS4Delivery() {
+def call() {
     fileOperations([
             fileRenameOperation(
                     source: "${WORKSPACE}/src/bin/Spectrecoin.app/Contents/MacOS/Tor/torrc-defaults",

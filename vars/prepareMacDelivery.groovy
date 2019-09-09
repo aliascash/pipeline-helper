@@ -1,4 +1,4 @@
-def prepareMacDelivery() {
+def call() {
     def exists = fileExists 'Tor.zip'
     if (exists) {
         echo 'Archive \'Tor.zip\' exists, nothing to download.'

@@ -1,4 +1,4 @@
-def prepareWindowsBuild() {
+def call() {
     def exists = fileExists 'Spectre.Prebuild.libraries.zip'
 
     if (exists) {

@@ -1,4 +1,4 @@
-def createWindowsDelivery(String version, String suffix) {
+def call(String version, String suffix) {
     // Unzip Tor and remove debug content
     fileOperations([
             fileUnZipOperation(
