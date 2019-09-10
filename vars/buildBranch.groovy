@@ -6,7 +6,7 @@
 
 def call(Map params = [:]) {
     String dockerfile = params.get("dockerfile")
-    String dockerTag = params.get("tag")
+    String dockerTag = params.get("dockerTag")
     String gitTag = params.get("gitTag")
     String gitCommit = params.get("gitCommit")
     withDockerRegistry(credentialsId: '051efa8c-aebd-40f7-9cfd-0053c413266e') {
