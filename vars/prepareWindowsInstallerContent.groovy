@@ -28,6 +28,6 @@ def call(Map params = [:]) {
                         targetLocation: "${WORKSPACE}/windows/content")
         ])
     } else {
-        echo "Archive '${archiveName}' not found, nothing to do"
+        error "Archive '${archiveName}' not found, nothing to do"
     }
 }
