@@ -72,8 +72,12 @@ def call(Map params = [:]) {
     // Rename build directory back to initial name
     fileOperations([
             folderDeleteOperation(
-                    folderPath: "${WORKSPACE}/old"),
-            fileZipOperation("${WORKSPACE}/src/Spectrecoin")
+                    folderPath: "${WORKSPACE}/old"
+            ),
+            fileZipOperation(
+                    folderPath: "${WORKSPACE}/src/Spectrecoin",
+                    outputFolderPath: "${WORKSPACE}"
+            )
     ])
     fileOperations([
             fileRenameOperation(
