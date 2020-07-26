@@ -1,7 +1,11 @@
 // ----------------------------------------------------------------------------
-//  Copyright (c) 2018 The Spectrecoin developers
+// SPDX-FileCopyrightText: © 2020 Alias Developers
+// SPDX-FileCopyrightText: © 2018 SpectreCoin Developers
 //
-//  @author   HLXEasy <helix@spectreproject.io>
+// SPDX-License-Identifier: MIT
+//
+// @author HLXEasy <helix@alias.cash>
+//
 // ----------------------------------------------------------------------------
 
 def call(Map params) {
