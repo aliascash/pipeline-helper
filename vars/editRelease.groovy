@@ -1,16 +1,13 @@
 // ----------------------------------------------------------------------------
-// SPDX-FileCopyrightText: © 2020 Alias Developers
-// SPDX-FileCopyrightText: © 2018 SpectreCoin Developers
+//  SPDX-FileCopyrightText: © 2018 The Spectrecoin developers
+//  SPDX-License-Identifier: MIT/X11
 //
-// SPDX-License-Identifier: MIT
-//
-// @author HLXEasy <helix@alias.cash>
-//
+//  @author   HLXEasy <helix@spectreproject.io>
 // ----------------------------------------------------------------------------
 
 def call(Map params) {
     checkAndSetParams(params)
-    createRelease(params)
+    editRelease(params)
 }
 
 private void checkAndSetParams(Map params) {
@@ -54,7 +51,7 @@ private void checkParams(Map params) {
     }
 }
 
-private void createRelease(Map params) {
+private void editRelease(Map params) {
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag
@@ -69,7 +66,7 @@ private void createRelease(Map params) {
                         -t \\
                         -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                         spectreproject/github-uploader:latest \\
-                        github-release release \\
+                        github-release edit \\
                             --user "${GITHUB_USER}" \\
                             --repo "${GITHUB_REPOSITORY}" \\
                             --tag "${GITHUB_TAG}" \\
@@ -82,7 +79,7 @@ private void createRelease(Map params) {
                         -t \\
                         -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                         spectreproject/github-uploader:latest \\
-                        github-release release \\
+                        github-release edit \\
                             --user "${GITHUB_USER}" \\
                             --repo "${GITHUB_REPOSITORY}" \\
                             --tag "${GITHUB_TAG}" \\

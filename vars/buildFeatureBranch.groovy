@@ -1,0 +1,22 @@
+// ----------------------------------------------------------------------------
+//  SPDX-FileCopyrightText: © 2019 The Spectrecoin developers
+//  SPDX-License-Identifier: MIT/X11
+//
+//  @author   HLXEasy <helix@spectreproject.io>
+// ----------------------------------------------------------------------------
+
+def call(Map params = [:]) {
+    String dockerfile = params.get("dockerfile")
+    String dockerTag = params.get("dockerTag")
+    withDockerRegistry(credentialsId: '051efa8c-aebd-40f7-9cfd-0053c413266e') {
+        sh(
+                script: """
+                    docker build \
+                        -f $dockerfile \
+                        --rm \
+                        -t $dockerTag \
+                        .
+                """
+        )
+    }
+}
