@@ -9,36 +9,36 @@
 // ----------------------------------------------------------------------------
 
 def call() {
-    def exists = fileExists 'Spectre.Prebuild.libraries.zip'
+    def exists = fileExists 'Alias.Prebuild.libraries.zip'
 
     if (exists) {
-        echo 'Archive \'Spectre.Prebuild.libraries.zip\' exists, nothing to download.'
+        echo 'Archive \'Alias.Prebuild.libraries.zip\' exists, nothing to download.'
     } else {
-        echo 'Archive \'Spectre.Prebuild.libraries.zip\' not found, downloading...'
+        echo 'Archive \'Alias.Prebuild.libraries.zip\' not found, downloading...'
         fileOperations([
                 fileDownloadOperation(
                         password: '',
-                        targetFileName: 'Spectre.Prebuild.libraries.zip',
+                        targetFileName: 'Alias.Prebuild.libraries.zip',
                         targetLocation: "${WORKSPACE}",
-                        url: 'https://github.com/spectrecoin/resources/raw/master/resources/Spectrecoin.Prebuild.libraries.win64.zip',
+                        url: 'https://github.com/aliascash/resources/raw/master/resources/Alias.Prebuild.libraries.win64.zip',
                         userName: ''),
                 fileUnZipOperation(
-                        filePath: 'Spectre.Prebuild.libraries.zip',
+                        filePath: 'Alias.Prebuild.libraries.zip',
                         targetLocation: '.'),
                 folderCopyOperation(
                         destinationFolderPath: 'leveldb',
-                        sourceFolderPath: 'Spectre.Prebuild.libraries/leveldb'),
+                        sourceFolderPath: 'Alias.Prebuild.libraries/leveldb'),
                 folderCopyOperation(
                         destinationFolderPath: 'packages64bit',
-                        sourceFolderPath: 'Spectre.Prebuild.libraries/packages64bit'),
+                        sourceFolderPath: 'Alias.Prebuild.libraries/packages64bit'),
                 folderCopyOperation(
                         destinationFolderPath: 'src',
-                        sourceFolderPath: 'Spectre.Prebuild.libraries/src'),
+                        sourceFolderPath: 'Alias.Prebuild.libraries/src'),
                 folderCopyOperation(
                         destinationFolderPath: 'tor',
-                        sourceFolderPath: 'Spectre.Prebuild.libraries/tor'),
+                        sourceFolderPath: 'Alias.Prebuild.libraries/tor'),
                 folderDeleteOperation(
-                        './Spectre.Prebuild.libraries'
+                        './Alias.Prebuild.libraries'
                 )
         ])
     }
@@ -52,7 +52,7 @@ def call() {
                         password: '',
                         targetFileName: 'Tor.zip',
                         targetLocation: "${WORKSPACE}",
-                        url: 'https://github.com/spectrecoin/resources/raw/master/resources/Spectrecoin.Tor.libraries.win64.zip',
+                        url: 'https://github.com/aliascash/resources/raw/master/resources/Alias.Tor.libraries.win64.zip',
                         userName: '')
         ])
     }
