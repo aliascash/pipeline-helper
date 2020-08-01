@@ -60,7 +60,7 @@ private void uploadArtifact(Map params) {
                     -t \\
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     -v ${WORKSPACE}:/filesToUpload \\
-                    spectreproject/github-uploader:latest \\
+                    aliascash/github-uploader:latest \\
                     github-release upload \\
                         --user "${GITHUB_USER}" \\
                         --repo "${GITHUB_REPOSITORY}" \\

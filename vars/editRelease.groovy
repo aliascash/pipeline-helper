@@ -68,7 +68,7 @@ private void editRelease(Map params) {
                         --rm \\
                         -t \\
                         -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
-                        spectreproject/github-uploader:latest \\
+                        aliascash/github-uploader:latest \\
                         github-release edit \\
                             --user "${GITHUB_USER}" \\
                             --repo "${GITHUB_REPOSITORY}" \\
@@ -81,7 +81,7 @@ private void editRelease(Map params) {
                         --rm \\
                         -t \\
                         -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
-                        spectreproject/github-uploader:latest \\
+                        aliascash/github-uploader:latest \\
                         github-release edit \\
                             --user "${GITHUB_USER}" \\
                             --repo "${GITHUB_REPOSITORY}" \\
