@@ -4,7 +4,7 @@
 //
 // SPDX-License-Identifier: MIT
 //
-// @author HLXEasy <helix@alias.cash>
+// @author Yves Schumann <yves@alias.cash>
 //
 // ----------------------------------------------------------------------------
 
