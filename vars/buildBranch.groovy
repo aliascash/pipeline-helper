@@ -21,7 +21,7 @@ def call(Map params = [:]) {
                         --rm \
                         --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} \
                         --build-arg GIT_COMMIT=${gitCommit} \
-                        --build-arg SPECTRECOIN_RELEASE=${gitTag} \
+                        --build-arg ALIAS_RELEASE=${gitTag} \
                         --build-arg REPLACE_EXISTING_ARCHIVE=--replace \
                         -t ${dockerTag} \
                         .
