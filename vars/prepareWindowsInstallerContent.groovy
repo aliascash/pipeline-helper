@@ -13,11 +13,11 @@ def call(Map params = [:]) {
     String archiveName = params.get("archiveName")
 
     // If directory 'Spectrecoin' exists from brevious build, remove it
-    def exists = fileExists "${WORKSPACE}/windows/content/Spectrecoin"
+    def exists = fileExists "${WORKSPACE}/windows/content/Alias"
     if (exists) {
         fileOperations([
                 folderDeleteOperation(
-                        folderPath: "${WORKSPACE}/windows/content/Spectrecoin"),
+                        folderPath: "${WORKSPACE}/windows/content/Alias"),
         ])
     }
 
