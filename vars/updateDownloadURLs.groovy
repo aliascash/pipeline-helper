@@ -58,8 +58,8 @@ private void updateURLs(Map params) {
     // <a href="https://download.alias.cash/files/4.2.0/Spectrecoin-4.2.0-38fb6b17-RaspbianLightBuster.zip">
     //
     // RegEX:
-    //          |    Match #1    |   |  Match #2   | |             Previous version            | |           |  |
-    //          |...${urlPart1}/ |...| /$urlPart2  |-|  MAJOR      .   MINOR      .   BUGFIX   |-| Git-Hash  |- | up to ">"
+    //          |       Match #1       |   |  Match #2   | |             Previous version            | |           |  |
+    //          |<a href="${urlPart1}/ |...| /$urlPart2  |-|  MAJOR      .   MINOR      .   BUGFIX   |-| Git-Hash  |- | ...</a>
     sh(
             script: '''
                 if [ -z "${WP_USERNAME}" ] ; then
@@ -81,6 +81,9 @@ private void updateURLs(Map params) {
                 
                 # Push modified content
                 curl -X POST -H 'Content-Type: application/json' -H "Authorization: Bearer ${TOKEN}" ${WP_URL}/wp-json/wp/v2/posts/${PAGE_ID} -d @content.json | jq -r '.content.rendered'
+                
+                # Cleanup
+                rm -f content.json
             '''
     )
 }
