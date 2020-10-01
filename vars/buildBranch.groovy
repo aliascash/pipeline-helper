@@ -1,8 +1,11 @@
 // ----------------------------------------------------------------------------
-//  SPDX-FileCopyrightText: © 2019 The Spectrecoin developers
-//  SPDX-License-Identifier: MIT/X11
+// SPDX-FileCopyrightText: © 2020 Alias Developers
+// SPDX-FileCopyrightText: © 2018 SpectreCoin Developers
 //
-//  @author   HLXEasy <helix@spectreproject.io>
+// SPDX-License-Identifier: MIT
+//
+// @author Yves Schumann <yves@alias.cash>
+//
 // ----------------------------------------------------------------------------
 
 def call(Map params = [:]) {
@@ -18,7 +21,7 @@ def call(Map params = [:]) {
                         --rm \
                         --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} \
                         --build-arg GIT_COMMIT=${gitCommit} \
-                        --build-arg SPECTRECOIN_RELEASE=${gitTag} \
+                        --build-arg ALIAS_RELEASE=${gitTag} \
                         --build-arg REPLACE_EXISTING_ARCHIVE=--replace \
                         -t ${dockerTag} \
                         .

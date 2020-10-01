@@ -1,8 +1,11 @@
 // ----------------------------------------------------------------------------
-//  SPDX-FileCopyrightText: © 2018 The Spectrecoin developers
-//  SPDX-License-Identifier: MIT/X11
+// SPDX-FileCopyrightText: © 2020 Alias Developers
+// SPDX-FileCopyrightText: © 2018 SpectreCoin Developers
 //
-//  @author   HLXEasy <helix@spectreproject.io>
+// SPDX-License-Identifier: MIT
+//
+// @author Yves Schumann <yves@alias.cash>
+//
 // ----------------------------------------------------------------------------
 
 def call(Map params) {
@@ -52,7 +55,7 @@ private void removeRelease(Map params) {
                 docker run \\
                     --rm \\
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
-                    spectreproject/github-uploader:latest \\
+                    aliascash/github-uploader:latest \\
                     github-release delete \\
                         --user "${GITHUB_USER}" \\
                         --repo "${GITHUB_REPOSITORY}" \\

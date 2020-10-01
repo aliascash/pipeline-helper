@@ -1,8 +1,11 @@
 // ----------------------------------------------------------------------------
-//  SPDX-FileCopyrightText: © 2018 The Spectrecoin developers
-//  SPDX-License-Identifier: MIT/X11
+// SPDX-FileCopyrightText: © 2020 Alias Developers
+// SPDX-FileCopyrightText: © 2018 SpectreCoin Developers
 //
-//  @author   HLXEasy <helix@spectreproject.io>
+// SPDX-License-Identifier: MIT
+//
+// @author Yves Schumann <yves@alias.cash>
+//
 // ----------------------------------------------------------------------------
 
 def call(Map params) {
@@ -45,7 +48,7 @@ private void checkParams(Map params) {
 
 // See https://stackoverflow.com/questions/7103531/how-to-get-the-part-of-file-after-the-line-that-matches-grep-expression-first
 // - sed statement to get all content below 'releases:'
-// - 1st grep to filter out first line of each release. They look i. e. like this: "- 2.1.0, name: 'Spectrecoin v2.1.0'..."
+// - 1st grep to filter out first line of each release. They look i. e. like this: "- 2.1.0, name: 'Alias v2.1.0'..."
 //   Must be done this way as the whole release notes will be shown here
 // - 2nd grep to find the line with the desired release
 private Boolean checkReleaseExistence(Map params) {
@@ -57,7 +60,7 @@ private Boolean checkReleaseExistence(Map params) {
                 docker run \\
                     --rm \\
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
-                    spectreproject/github-uploader:latest \\
+                    aliascash/github-uploader:latest \\
                     github-release info \\
                         --user "${GITHUB_USER}" \\
                         --repo "${GITHUB_REPOSITORY}" | sed -e '1,/releases:/d' | grep -- "- ${GITHUB_TAG}, name: "

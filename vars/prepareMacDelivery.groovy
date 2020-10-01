@@ -1,8 +1,11 @@
 // ----------------------------------------------------------------------------
-//  SPDX-FileCopyrightText: © 2019 The Spectrecoin developers
-//  SPDX-License-Identifier: MIT/X11
+// SPDX-FileCopyrightText: © 2020 Alias Developers
+// SPDX-FileCopyrightText: © 2018 SpectreCoin Developers
 //
-//  @author   HLXEasy <helix@spectreproject.io>
+// SPDX-License-Identifier: MIT
+//
+// @author Yves Schumann <yves@alias.cash>
+//
 // ----------------------------------------------------------------------------
 
 def call() {
@@ -16,14 +19,14 @@ def call() {
                         password: '',
                         targetFileName: 'Tor.zip',
                         targetLocation: "${WORKSPACE}",
-                        url: 'https://github.com/spectrecoin/resources/raw/master/resources/Spectrecoin.Tor.libraries.macOS.zip',
+                        url: 'https://github.com/aliascash/resources/raw/master/resources/Alias.Tor.libraries.macOS.zip',
                         userName: '')
         ])
     }
     // Unzip Tor and remove debug content
     fileOperations([
             folderDeleteOperation(
-                    folderPath: "${WORKSPACE}/src/bin/Spectrecoin.app/Contents/MacOS/Tor"),
+                    folderPath: "${WORKSPACE}/src/bin/Alias.app/Contents/MacOS/Tor"),
             fileUnZipOperation(
                     filePath: "${WORKSPACE}/Tor.zip",
                     targetLocation: "${WORKSPACE}/"),

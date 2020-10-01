@@ -1,20 +1,23 @@
 // ----------------------------------------------------------------------------
-//  SPDX-FileCopyrightText: © 2019 The Spectrecoin developers
-//  SPDX-License-Identifier: MIT/X11
+// SPDX-FileCopyrightText: © 2020 Alias Developers
+// SPDX-FileCopyrightText: © 2018 SpectreCoin Developers
 //
-//  @author   HLXEasy <helix@spectreproject.io>
+// SPDX-License-Identifier: MIT
+//
+// @author Yves Schumann <yves@alias.cash>
+//
 // ----------------------------------------------------------------------------
 
 def call(Map params = [:]) {
     String archiveLocation = params.get("archiveLocation")
     String archiveName = params.get("archiveName")
 
-    // If directory 'Spectrecoin' exists from brevious build, remove it
-    def exists = fileExists "${WORKSPACE}/windows/content/Spectrecoin"
+    // If directory 'Alias' exists from brevious build, remove it
+    def exists = fileExists "${WORKSPACE}/windows/content/Alias"
     if (exists) {
         fileOperations([
                 folderDeleteOperation(
-                        folderPath: "${WORKSPACE}/windows/content/Spectrecoin"),
+                        folderPath: "${WORKSPACE}/windows/content/Alias"),
         ])
     }
 

@@ -1,8 +1,11 @@
 // ----------------------------------------------------------------------------
-//  SPDX-FileCopyrightText: © 2019 The Spectrecoin developers
-//  SPDX-License-Identifier: MIT/X11
+// SPDX-FileCopyrightText: © 2020 Alias Developers
+// SPDX-FileCopyrightText: © 2018 SpectreCoin Developers
 //
-//  @author   HLXEasy <helix@spectreproject.io>
+// SPDX-License-Identifier: MIT
+//
+// @author Yves Schumann <yves@alias.cash>
+//
 // ----------------------------------------------------------------------------
 
 def call(Map params = [:]) {
@@ -19,60 +22,60 @@ def call(Map params = [:]) {
                     folderPath: "${WORKSPACE}/src/bin/debug"
             ),
     ])
-    // If directory 'Spectrecoin' exists from brevious build, remove it
-    def exists = fileExists "${WORKSPACE}/src/Spectrecoin"
+    // If directory 'Alias' exists from brevious build, remove it
+    def exists = fileExists "${WORKSPACE}/src/Alias"
     if (exists) {
         fileOperations([
                 folderDeleteOperation(
-                        folderPath: "${WORKSPACE}/src/Spectrecoin"
+                        folderPath: "${WORKSPACE}/src/Alias"
                 ),
         ])
     }
-    // Rename build directory to 'Spectrecoin' and create directory for content to remove later
+    // Rename build directory to 'Alias' and create directory for content to remove later
     fileOperations([
             folderRenameOperation(
                     source: "${WORKSPACE}/src/bin",
-                    destination: "${WORKSPACE}/src/Spectrecoin"
+                    destination: "${WORKSPACE}/src/Alias"
             ),
             folderCreateOperation(
                     folderPath: "${WORKSPACE}/old"
             ),
     ])
     // If archive from previous build exists, move it to directory 'old'
-    exists = fileExists "${WORKSPACE}/Spectrecoin.zip"
+    exists = fileExists "${WORKSPACE}/Alias.zip"
     if (exists) {
         fileOperations([
                 fileRenameOperation(
-                        source: "${WORKSPACE}/Spectrecoin.zip",
-                        destination: "${WORKSPACE}/old/Spectrecoin.zip"
+                        source: "${WORKSPACE}/Alias.zip",
+                        destination: "${WORKSPACE}/old/Alias.zip"
                 ),
         ])
     }
     // If archive from previous build exists, move it to directory 'old'
-    exists = fileExists "${WORKSPACE}/Spectrecoin-${version}${suffix}.zip"
+    exists = fileExists "${WORKSPACE}/Alias-${version}${suffix}.zip"
     if (exists) {
         fileOperations([
                 fileRenameOperation(
-                        source: "${WORKSPACE}/Spectrecoin-${version}.zip",
-                        destination: "${WORKSPACE}/old/Spectrecoin-${version}.zip"
+                        source: "${WORKSPACE}/Alias-${version}.zip",
+                        destination: "${WORKSPACE}/old/Alias-${version}.zip"
                 ),
         ])
     }
-    exists = fileExists "${WORKSPACE}/Spectrecoin-${version}-Win64${suffix}.zip"
+    exists = fileExists "${WORKSPACE}/Alias-${version}-Win64${suffix}.zip"
     if (exists) {
         fileOperations([
                 fileRenameOperation(
-                        source: "${WORKSPACE}/Spectrecoin-${version}-Win64${suffix}.zip",
-                        destination: "${WORKSPACE}/old/Spectrecoin-${version}-Win64${suffix}.zip"
+                        source: "${WORKSPACE}/Alias-${version}-Win64${suffix}.zip",
+                        destination: "${WORKSPACE}/old/Alias-${version}-Win64${suffix}.zip"
                 ),
         ])
     }
-    exists = fileExists "${WORKSPACE}/Spectrecoin-${version}-Win64${suffix}-OBFS4.zip"
+    exists = fileExists "${WORKSPACE}/Alias-${version}-Win64${suffix}-OBFS4.zip"
     if (exists) {
         fileOperations([
                 fileRenameOperation(
-                        source: "${WORKSPACE}/Spectrecoin-${version}-Win64${suffix}-OBFS4.zip",
-                        destination: "${WORKSPACE}/old/Spectrecoin-${version}-Win64${suffix}-OBFS4.zip"
+                        source: "${WORKSPACE}/Alias-${version}-Win64${suffix}-OBFS4.zip",
+                        destination: "${WORKSPACE}/old/Alias-${version}-Win64${suffix}-OBFS4.zip"
                 ),
         ])
     }
@@ -84,43 +87,43 @@ def call(Map params = [:]) {
                     folderPath: "${WORKSPACE}/old"
             ),
             fileZipOperation(
-                    folderPath: "${WORKSPACE}/src/Spectrecoin",
+                    folderPath: "${WORKSPACE}/src/Alias",
                     outputFolderPath: "${WORKSPACE}"
             )
     ])
     fileOperations([
             fileRenameOperation(
-                    source: "${WORKSPACE}/Spectrecoin.zip",
-                    destination: "${WORKSPACE}/Spectrecoin-${version}-Win64${suffix}.zip"
+                    source: "${WORKSPACE}/Alias.zip",
+                    destination: "${WORKSPACE}/Alias-${version}-Win64${suffix}.zip"
             ),
             fileRenameOperation(
-                    source: "${WORKSPACE}/src/Spectrecoin/Tor/torrc-defaults",
-                    destination: "${WORKSPACE}/src/Spectrecoin/Tor/torrc-defaults_plain"
+                    source: "${WORKSPACE}/src/Alias/Tor/torrc-defaults",
+                    destination: "${WORKSPACE}/src/Alias/Tor/torrc-defaults_plain"
             ),
             fileRenameOperation(
-                    source: "${WORKSPACE}/src/Spectrecoin/Tor/torrc-defaults_obfs4",
-                    destination: "${WORKSPACE}/src/Spectrecoin/Tor/torrc-defaults"
+                    source: "${WORKSPACE}/src/Alias/Tor/torrc-defaults_obfs4",
+                    destination: "${WORKSPACE}/src/Alias/Tor/torrc-defaults"
             ),
             fileZipOperation(
-                    folderPath: "${WORKSPACE}/src/Spectrecoin",
+                    folderPath: "${WORKSPACE}/src/Alias",
                     outputFolderPath: "${WORKSPACE}"
             )
     ])
     fileOperations([
             fileRenameOperation(
-                    source: "${WORKSPACE}/Spectrecoin.zip",
-                    destination: "${WORKSPACE}/Spectrecoin-${version}-Win64${suffix}-OBFS4.zip"
+                    source: "${WORKSPACE}/Alias.zip",
+                    destination: "${WORKSPACE}/Alias-${version}-Win64${suffix}-OBFS4.zip"
             ),
             fileRenameOperation(
-                    source: "${WORKSPACE}/src/Spectrecoin/Tor/torrc-defaults",
-                    destination: "${WORKSPACE}/src/Spectrecoin/Tor/torrc-defaults_obfs4"
+                    source: "${WORKSPACE}/src/Alias/Tor/torrc-defaults",
+                    destination: "${WORKSPACE}/src/Alias/Tor/torrc-defaults_obfs4"
             ),
             fileRenameOperation(
-                    source: "${WORKSPACE}/src/Spectrecoin/Tor/torrc-defaults_plain",
-                    destination: "${WORKSPACE}/src/Spectrecoin/Tor/torrc-defaults"
+                    source: "${WORKSPACE}/src/Alias/Tor/torrc-defaults_plain",
+                    destination: "${WORKSPACE}/src/Alias/Tor/torrc-defaults"
             ),
             folderRenameOperation(
-                    source: "${WORKSPACE}/src/Spectrecoin",
+                    source: "${WORKSPACE}/src/Alias",
                     destination: "${WORKSPACE}/src/bin"
             )
     ])

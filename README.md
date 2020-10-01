@@ -1,8 +1,15 @@
-# Spectrecoin pipeline helpers
+# Alias pipeline helpers
 
 This repository contains some helper functions, which where used by our
-[Continuous Integration](https://ci.spectreproject.io). They are includet
+[Continuous Integration](https://ci.alias.cash). They are includet
 as [Shared Libraries](https://jenkins.io/doc/book/pipeline/shared-libraries/).
+
+## Licensing
+
+- SPDX-FileCopyrightText: © 2020 Alias Developers
+- SPDX-FileCopyrightText: © 2018 SpectreCoin Developers
+
+SPDX-License-Identifier: MIT
 
 ## Git tag handling
 
@@ -29,7 +36,7 @@ Optional parameters:
 ## GitHub release handling
 
 The whole GitHub release handling is based on our Docker image
-[github-uploader](https://github.com/spectrecoin/github-uploader). So the
+[github-uploader](https://github.com/aliascash/github-uploader). So the
 functions here are more or less wrappers around the different Docker-run-calls
 with parameter validation and error handling.
 

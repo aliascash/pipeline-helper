@@ -1,8 +1,11 @@
 // ----------------------------------------------------------------------------
-//  SPDX-FileCopyrightText: © 2020 The Spectrecoin developers
-//  SPDX-License-Identifier: MIT/X11
+// SPDX-FileCopyrightText: © 2020 Alias Developers
+// SPDX-FileCopyrightText: © 2018 SpectreCoin Developers
 //
-//  @author   HLXEasy <helix@spectreproject.io>
+// SPDX-License-Identifier: MIT
+//
+// @author Yves Schumann <yves@alias.cash>
+//
 // ----------------------------------------------------------------------------
 
 def call(Map params = [:]) {
@@ -11,8 +14,8 @@ def call(Map params = [:]) {
 
     fileOperations([
             fileRenameOperation(
-                    source: "${WORKSPACE}/windows/Spectrecoin-Installer.exe",
-                    destination: "${WORKSPACE}/Spectrecoin-${GIT_TAG_TO_USE}-${GIT_COMMIT_SHORT}-Win64-Installer.exe"),
+                    source: "${WORKSPACE}/windows/Alias-Installer.exe",
+                    destination: "${WORKSPACE}/Alias-${GIT_TAG_TO_USE}-${GIT_COMMIT_SHORT}-Win64-Installer.exe"),
     ])
-    archiveArtifacts allowEmptyArchive: false, artifacts: "Spectrecoin-${GIT_TAG_TO_USE}-${GIT_COMMIT_SHORT}-Win64-Installer.exe"
+    archiveArtifacts allowEmptyArchive: false, artifacts: "Alias-${GIT_TAG_TO_USE}-${GIT_COMMIT_SHORT}-Win64-Installer.exe"
 }
