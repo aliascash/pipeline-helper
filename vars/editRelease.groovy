@@ -41,7 +41,7 @@ private void checkParams(Map params) {
         }
     }
 
-    Set ALL_PARAMS = ['user', 'repository', 'tag', 'name', 'description', 'preRelease']
+    Set ALL_PARAMS = ['user', 'repository', 'tag', 'name', 'description', 'preRelease', 'githubCIToken']
 
     for (String param : params.keySet()) {
         if (!ALL_PARAMS.contains(param)) {
@@ -55,6 +55,7 @@ private void checkParams(Map params) {
 }
 
 private void editRelease(Map params) {
+    env.GITHUB_CI_TOKEN = params.githubCIToken
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag
@@ -67,9 +68,9 @@ private void editRelease(Map params) {
                     docker run \\
                         --rm \\
                         -t \\
-                        -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                         aliascash/github-uploader:latest \\
                         github-release edit \\
+                            --security-token "${GITHUB_CI_TOKEN}" \\
                             --user "${GITHUB_USER}" \\
                             --repo "${GITHUB_REPOSITORY}" \\
                             --tag "${GITHUB_TAG}" \\
@@ -80,9 +81,9 @@ private void editRelease(Map params) {
                     docker run \\
                         --rm \\
                         -t \\
-                        -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                         aliascash/github-uploader:latest \\
                         github-release edit \\
+                            --security-token "${GITHUB_CI_TOKEN}" \\
                             --user "${GITHUB_USER}" \\
                             --repo "${GITHUB_REPOSITORY}" \\
                             --tag "${GITHUB_TAG}" \\

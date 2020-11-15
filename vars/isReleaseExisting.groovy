@@ -33,7 +33,7 @@ private void checkParams(Map params) {
         }
     }
 
-    Set ALL_PARAMS = ['user', 'repository', 'tag']
+    Set ALL_PARAMS = ['user', 'repository', 'tag', 'githubCIToken']
 
     for (String param : params.keySet()) {
         if (!ALL_PARAMS.contains(param)) {
@@ -52,6 +52,7 @@ private void checkParams(Map params) {
 //   Must be done this way as the whole release notes will be shown here
 // - 2nd grep to find the line with the desired release
 private Boolean checkReleaseExistence(Map params) {
+    env.GITHUB_CI_TOKEN = params.githubCIToken
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag
@@ -59,9 +60,9 @@ private Boolean checkReleaseExistence(Map params) {
             script: '''
                 docker run \\
                     --rm \\
-                    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     aliascash/github-uploader:latest \\
                     github-release info \\
+                        --security-token "${GITHUB_CI_TOKEN}" \\
                         --user "${GITHUB_USER}" \\
                         --repo "${GITHUB_REPOSITORY}" | sed -e '1,/releases:/d' | grep -- "- ${GITHUB_TAG}, name: "
             ''',

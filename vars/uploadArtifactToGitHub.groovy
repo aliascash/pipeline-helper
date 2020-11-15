@@ -34,7 +34,7 @@ private void checkParams(Map params) {
         }
     }
 
-    Set ALL_PARAMS = ['user', 'repository', 'tag', 'artifactNameLocal', 'artifactNameRemote']
+    Set ALL_PARAMS = ['user', 'repository', 'tag', 'artifactNameLocal', 'artifactNameRemote', 'githubCIToken']
 
     for (String param : params.keySet()) {
         if (!ALL_PARAMS.contains(param)) {
@@ -48,6 +48,7 @@ private void checkParams(Map params) {
 }
 
 private void uploadArtifact(Map params) {
+    env.GITHUB_CI_TOKEN = params.githubCIToken
     env.GITHUB_USER = params.user
     env.GITHUB_REPOSITORY = params.repository
     env.GITHUB_TAG = params.tag
@@ -58,10 +59,10 @@ private void uploadArtifact(Map params) {
                 docker run \\
                     --rm \\
                     -t \\
-                    -e GITHUB_TOKEN=${GITHUB_TOKEN} \\
                     -v ${WORKSPACE}:/filesToUpload \\
                     aliascash/github-uploader:latest \\
                     github-release upload \\
+                        --security-token "${GITHUB_CI_TOKEN}" \\
                         --user "${GITHUB_USER}" \\
                         --repo "${GITHUB_REPOSITORY}" \\
                         --tag "${GITHUB_TAG}" \\
