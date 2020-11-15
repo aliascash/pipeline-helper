@@ -13,13 +13,14 @@ def call(Map params = [:]) {
     String dockerTag = params.get("dockerTag")
     String gitTag = params.get("gitTag")
     String gitCommit = params.get("gitCommit")
+    String githubToken = params.get("githubCIToken")
     withDockerRegistry(credentialsId: 'DockerHub-Login') {
         sh(
                 script: """
                     docker build \
                         -f ${dockerfile} \
                         --rm \
-                        --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} \
+                        --build-arg GITHUB_CI_TOKEN=${githubToken} \
                         --build-arg GIT_COMMIT=${gitCommit} \
                         --build-arg ALIAS_RELEASE=${gitTag} \
                         --build-arg REPLACE_EXISTING_ARCHIVE=--replace \
