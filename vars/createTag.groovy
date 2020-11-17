@@ -50,12 +50,19 @@ private void checkParams(Map params) {
     }
 }
 
+/*
+ * At first all local tags must be removed and then fetched again because
+ * there might be more tags locally than remote, as old tags could be removed
+ * on Github but the workspace on the build slave is reused!
+ */
 private void createTag(Map params) {
     env.GITHUB_TAG = params.tag
     env.GITHUB_COMMIT = params.commit
     env.GITHUB_COMMENT = params.comment
     sh(
             script: '''
+                git tag -l | xargs git tag -d > /dev/null
+                git fetch > /dev/null 2>&1
                 git tag -fa "${GITHUB_TAG}" -m "${GITHUB_COMMENT}" ${GITHUB_COMMIT}
                 git push --tags --force
             '''
