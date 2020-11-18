@@ -16,10 +16,10 @@ def call(Map params = [:]) {
         sh (
                 script: """
                     tmpContainer=\$(date +%s)
-                    docker run --name tmpContainer${tmpContainer} -dit ${dockerTag} /bin/sh 
-                    docker cp tmpContainer${tmpContainer}:/filesToUpload/${checksumfile} ${checksumfile}
-                    docker stop tmpContainer${tmpContainer}
-                    docker rm tmpContainer${tmpContainer}
+                    docker run --name tmpContainer\${tmpContainer} -dit ${dockerTag} /bin/sh 
+                    docker cp tmpContainer\${tmpContainer}:/filesToUpload/${checksumfile} ${checksumfile}
+                    docker stop tmpContainer\${tmpContainer}
+                    docker rm tmpContainer\${tmpContainer}
                 """
         )
     }
