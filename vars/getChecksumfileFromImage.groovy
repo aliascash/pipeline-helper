@@ -15,7 +15,7 @@ def call(Map params = [:]) {
     withDockerRegistry(credentialsId: 'DockerHub-Login') {
         sh (
                 script: """
-                    tmpContainer=\$(date +%s)
+                    tmpContainer=\$(date +%s%N)
                     docker run --name tmpContainer\${tmpContainer} -dit ${dockerTag} /bin/sh 
                     docker cp tmpContainer\${tmpContainer}:/filesToUpload/${checksumfile} ${checksumfile}
                     docker stop tmpContainer\${tmpContainer}
