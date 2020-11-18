@@ -9,13 +9,13 @@
 // ----------------------------------------------------------------------------
 
 def call(Map params = [:]) {
-    String dockerTag = params.get("dockerTag")
-    String checksumfile = params.get("checksumfile")
-    String tmpContainer = ""
+    env.String dockerTag = params.get("dockerTag")
+    env.String checksumfile = params.get("checksumfile")
+    env.String tmpContainer = ""
     withDockerRegistry(credentialsId: 'DockerHub-Login') {
         sh (
                 script: '''
-                    tmpContainer=${RANDOM}
+                    tmpContainer=$(date +%s)
                     docker run --name tmpContainer${tmpContainer} -dit ${dockerTag} /bin/sh 
                     docker cp tmpContainer${tmpContainer}:/filesToUpload/${checksumfile} ${checksumfile}
                     docker stop tmpContainer${tmpContainer}
