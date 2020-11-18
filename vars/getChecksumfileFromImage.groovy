@@ -14,13 +14,13 @@ def call(Map params = [:]) {
     String tmpContainer = ""
     withDockerRegistry(credentialsId: 'DockerHub-Login') {
         sh (
-                script: """
+                script: '''
                     tmpContainer=${RANDOM}
                     docker run --name tmpContainer${tmpContainer} -dit ${dockerTag} /bin/sh 
                     docker cp tmpContainer${tmpContainer}:/filesToUpload/${checksumfile} ${checksumfile}
                     docker stop tmpContainer${tmpContainer}
                     docker rm tmpContainer${tmpContainer}
-                """
+                '''
         )
     }
 }
