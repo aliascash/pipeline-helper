@@ -19,7 +19,6 @@ def call(Map params = [:]) {
                         --rm \
                         --build-arg KEYSTORE_PASS=${KEYSTORE_PASS} \
                         -t $dockerTag \
-                        -v /etc/ssl/certs/AliasWalletAndroidKeyStore.jks:/etc/ssl/certs/alias-sign-keystore.jks \
                         .
                 """
             )
