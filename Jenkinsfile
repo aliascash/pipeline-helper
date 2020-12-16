@@ -15,6 +15,9 @@ pipeline {
     triggers {
         cron('H 5 * * *')
     }
+    environment {
+        DISCORD_WEBHOOK = credentials('DISCORD_WEBHOOK')
+    }
     stages {
         stage('Notification') {
             agent {
