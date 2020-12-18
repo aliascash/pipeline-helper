@@ -15,7 +15,7 @@ def call(Map params = [:]) {
     String githubToken = params.get("githubCIToken")
     withDockerRegistry(credentialsId: 'DockerHub-Login') {
         withCredentials([string(credentialsId: 'Android-Sign-Keystore', variable: 'KEYSTORE_PASS')]) {
-            sh(
+            def statusCode = sh(
                     script: """
                     docker build \
                         -f ${dockerfile} \
@@ -30,6 +30,9 @@ def call(Map params = [:]) {
                 """,
                     returnStatus: true
             )
+            if (statusCode != 0) {
+                currentBuild.result = 'FAILURE'
+            }
         }
     }
 }

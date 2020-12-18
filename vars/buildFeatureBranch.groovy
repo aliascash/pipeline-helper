@@ -12,7 +12,7 @@ def call(Map params = [:]) {
     String dockerfile = params.get("dockerfile")
     String dockerTag = params.get("dockerTag")
     withDockerRegistry(credentialsId: 'DockerHub-Login') {
-        sh(
+        def statusCode = sh(
                 script: """
                     docker build \
                         -f $dockerfile \
@@ -22,5 +22,8 @@ def call(Map params = [:]) {
                 """,
                 returnStatus: true
         )
+        if (statusCode != 0) {
+            currentBuild.result = 'FAILURE'
+        }
     }
 }

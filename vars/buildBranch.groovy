@@ -15,7 +15,7 @@ def call(Map params = [:]) {
     String gitCommit = params.get("gitCommit")
     String githubToken = params.get("githubCIToken")
     withDockerRegistry(credentialsId: 'DockerHub-Login') {
-        sh(
+        def statusCode = sh(
                 script: """
                     docker build \
                         -f ${dockerfile} \
@@ -29,5 +29,8 @@ def call(Map params = [:]) {
                 """,
                 returnStatus: true
         )
+        if (statusCode != 0) {
+            currentBuild.result = 'FAILURE'
+        }
     }
 }
