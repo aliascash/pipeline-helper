@@ -20,7 +20,8 @@ def call(Map params = [:]) {
                         --build-arg KEYSTORE_PASS=${KEYSTORE_PASS} \
                         -t $dockerTag \
                         .
-                """
+                """,
+                    returnStatus: true
             )
         }
     }

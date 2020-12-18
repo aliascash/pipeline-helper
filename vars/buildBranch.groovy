@@ -26,7 +26,8 @@ def call(Map params = [:]) {
                         --build-arg REPLACE_EXISTING_ARCHIVE=--replace \
                         -t ${dockerTag} \
                         .
-                """
+                """,
+                returnStatus: true
         )
     }
 }

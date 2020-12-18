@@ -19,7 +19,8 @@ def call(Map params = [:]) {
                         --rm \
                         -t $dockerTag \
                         .
-                """
+                """,
+                returnStatus: true
         )
     }
 }
